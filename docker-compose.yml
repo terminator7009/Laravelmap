@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  laravelmap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravelmap
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - TZ=UTC
+    # Example command - replace with your target URL
+    command: -url https://example.com -output /app/reports/scan-report.json -format json
+    # For interactive use, you can comment out the command above and use:
+    # stdin_open: true
+    # tty: true
