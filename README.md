@@ -2,7 +2,7 @@
 
 # 🕸️ LaravelMap
 
-<img src="/https://github.com/user-attachments/assets/20811bad-674d-49fa-aec1-31f7eb2eaa3c" alt="LaravelMap Logo" width="450">
+<img src="/laravelmap.png" alt="LaravelMap Logo" width="450">
 
 [![Go](https://img.shields.io/badge/go-v1.18+-blue.svg)](https://golang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
