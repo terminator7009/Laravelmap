@@ -24,7 +24,7 @@ _______________________________________________________________
 | |__| (_| | | | (_| |\ V /  __/ |    | |  | | (_| | |_) |
 |_____\__,_|_|  \__,_| \_/ \___|_|    |_|  |_|\__,_| .__/ 
                                                    |_|    
-         Laravel Security Scanner by @ibrahim
+         Laravel Security Scanner by @ibrahimsql
                          Version 1.0.0
        Enterprise-Grade Laravel Penetration Testing Tool
 _______________________________________________________________
